@@ -1,0 +1,135 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="page_6_style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+    <div id="modal-container" class="one" onclick="remove_class()">
+        <div class="modal-background">
+            <div class="modal">
+                <h2>Eng/ Mariam Yasser</h2>
+                <h2>Eng/Habiba Ayman</h2>
+                <svg class="modal-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
+                    <rect x="0" y="0" fill="none" width="226" height="162" rx="3" ry="3"></rect>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <div class="lgoinbox">
+        <img src="face.jpg" class="face">
+        <h1>
+            Contact Form
+        </h1>
+        <form>
+            <p>
+                First Name
+            </p>
+            <input type="FirstName" name="" placeholder="Enter First Name">
+            <p>
+                Last Name
+            </p>
+
+
+            <input type="LastName" name="psw" id="psw" placeholder="Enter LastName" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+            <p>
+                Country
+            </p>
+            <input type="Country" name="" placeholder="Enter Country">
+
+            <input type="Submit" name="" value="Login" required>
+
+            <div class="form-items" style="padding: 5px;">
+                <textarea id="textArea" class="input message" cols="30" rows="4" placeholder="Message....." style="border-radius:15px ; padding: 5px;"></textarea>
+
+                <input type="button" onclick="changecolor()" value="change background-color" style="margin-top: 10px;">
+            </div>
+
+
+        </form>
+
+
+    </div>
+    <script>
+        // JavaScript code to change
+        // the content of <textarea>
+        function changecolor() {
+            var t = document.getElementById("textArea")
+            var b = document.getElementById("c")
+            t.style = "background-color:rgb(183, 130, 183)"
+
+
+        }
+    </script>
+    <script>
+        function remove_class() {
+            var element = document.getElementById('modal-container')
+            element.classList.remove('one')
+        }
+
+        var myInput = document.getElementById("psw");
+        var letter = document.getElementById("letter");
+        var capital = document.getElementById("capital");
+        var number = document.getElementById("number");
+        var length = document.getElementById("length");
+
+        // When the user clicks on the password field, show the message box
+        myInput.onfocus = function() {
+            document.getElementById("message").style.display = "block";
+        }
+
+        // When the user clicks outside of the password field, hide the message box
+        myInput.onblur = function() {
+            document.getElementById("message").style.display = "none";
+        }
+
+        // When the user starts to type something inside the password field
+        myInput.onkeyup = function() {
+            // Validate lowercase letters
+            var lowerCaseLetters = /[a-z]/g;
+            if (myInput.value.match(lowerCaseLetters)) {
+                letter.classList.remove("invalid");
+                letter.classList.add("valid");
+            } else {
+                letter.classList.remove("valid");
+                letter.classList.add("invalid");
+            }
+
+            // Validate capital letters
+            var upperCaseLetters = /[A-Z]/g;
+            if (myInput.value.match(upperCaseLetters)) {
+                capital.classList.remove("invalid");
+                capital.classList.add("valid");
+            } else {
+                capital.classList.remove("valid");
+                capital.classList.add("invalid");
+            }
+
+            // Validate numbers
+            var numbers = /[0-9]/g;
+            if (myInput.value.match(numbers)) {
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+            } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+            }
+
+            // Validate length
+            if (myInput.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+            } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

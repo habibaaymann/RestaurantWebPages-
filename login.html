@@ -1,0 +1,284 @@
+<html>
+<link rel="stylesheet" href="style.css">
+
+<bodY>
+
+    <div class="lgoinbox">
+        <img src="face.jpg" class="face">
+        <h1>
+            Login Here
+        </h1>
+        <form>
+            <p>
+                Email
+            </p>
+
+            <!-- <div class="pw-meter">
+                <h2>Password Strength Meter</h2>
+                <div class="form-element">
+                    <label for="password">Password</label>
+                    <input type="password" id="password">
+                    <div class="pw-display-toggle-btn">
+                        <i class="fa fa-eye"></i>
+                        <i class="fa fa-eye-slash"></i>
+                    </div>
+                    <div class="pw-strength">
+                        <span>Weak</span>
+                        <span></span>
+                    </div>
+                </div>
+            </div> -->
+
+
+            <input type="Email" name="" placeholder="Enter Email">
+            <p>
+                Password
+            </p>
+            <input type="Password" name="password" id="password" placeholder="Enter Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+            <div class="pw-display-toggle-btn">
+                <i class="fa fa-eye"></i>
+                <i class="fa fa-eye-slash"></i>
+            </div>
+            <div class="pw-strength">
+                <span>Weak</span>
+                <span></span>
+            </div>
+            <input type="Submit" name="" value="Login" required>
+            <a href="#">
+                Forget Your Password ?
+
+                </a>
+            <br>
+            <a href="#">
+                   Don't Have Account ?
+    
+                    </a>
+
+        </form>
+
+    </div>
+
+
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        
+        .pw-meter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .pw-meter h2 {
+            margin: 10px 0px 30px;
+            font-size: 20px;
+            color: #111;
+            text-align: center;
+        }
+        
+        .pw-meter .form-element {
+            position: relative;
+        }
+        
+        .pw-meter label {
+            display: block;
+            margin-bottom: 8px;
+            color: #111;
+        }
+        
+        .pw-meter input {
+            padding: 8px 30px 8px 10px;
+            width: 100%;
+            font-size: 16px;
+            border: 1px solid #bbb;
+            outline: none;
+        }
+        
+        .pw-display-toggle-btn {
+            position: absolute;
+            right: 10px;
+            top: 35px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+        }
+        
+        .pw-display-toggle-btn i.fa-eye-slash {
+            display: none;
+        }
+        
+        .pw-display-toggle-btn.active i.fa-eye-slash {
+            display: block;
+        }
+        
+        .pw-display-toggle-btn.active i.fa-eye {
+            display: none;
+        }
+        
+        .pw-strength {
+            position: relative;
+            width: 100%;
+            height: 20px;
+            margin-top: 10px;
+            text-align: center;
+            background: #f4bfef;
+            display: none;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .pw-strength span:nth-child(1) {
+            position: relative;
+            font-size: 13px;
+            color: #111;
+            z-index: 2;
+            font-weight: 600;
+        }
+        
+        .pw-strength span:nth-child(2) {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 0%;
+            height: 100%;
+            border-radius: 5px;
+            z-index: 1;
+            transition: all 300ms ease-in-out;
+        }
+    </style>
+
+    <script>
+        function getPasswordStrength(password) {
+            let s = 0;
+            if (password.length > 6) {
+                s++;
+            }
+            if (password.length > 10) {
+                s++;
+            }
+            if (/[A-Z]/.test(password)) {
+                s++;
+            }
+            if (/[0-9]/.test(password)) {
+                s++;
+            }
+            if (/[^A-Za-z0-9]/.test(password)) {
+                s++;
+            }
+            return s;
+        }
+        document.querySelector("#password").addEventListener("focus", function() {
+            document.querySelector(".pw-strength").style.display = "block";
+        });
+        document.querySelector(".pw-display-toggle-btn").addEventListener("click", function() {
+            let el = document.querySelector(".pw-display-toggle-btn");
+            if (el.classList.contains("active")) {
+                document.querySelector("#password").setAttribute("type", "password");
+                el.classList.remove("active");
+            } else {
+                document.querySelector("#password").setAttribute("type", "text");
+                el.classList.add("active");
+            }
+        });
+
+        document.querySelector("#password").addEventListener("keyup", function(e) {
+            let password = e.target.value;
+            let strength = getPasswordStrength(password);
+            let passwordStrengthSpans = document.querySelectorAll(".pw-strength span");
+            strength = Math.max(strength, 1);
+            passwordStrengthSpans[1].style.width = strength * 20 + "%";
+            if (strength < 2) {
+                passwordStrengthSpans[0].innerText = "Weak";
+                passwordStrengthSpans[0].style.color = "#555";
+                passwordStrengthSpans[1].style.background = "#d13636";
+            } else if (strength >= 2 && strength <= 4) {
+                passwordStrengthSpans[0].innerText = "Medium";
+                passwordStrengthSpans[0].style.color = "#555";
+                passwordStrengthSpans[1].style.background = "#e6da44";
+            } else {
+                passwordStrengthSpans[0].innerText = "Strong";
+                passwordStrengthSpans[0].style.color = "#fff";
+                passwordStrengthSpans[1].style.background = "#20a820";
+            }
+        });
+    </script>
+
+
+
+
+
+    <!-- <script>
+            var myInput = document.getElementById("password");
+var letter = document.getElementById("letter");
+var capital = document.getElementById("capital");
+var number = document.getElementById("number");
+var length = document.getElementById("length");
+
+// When the user clicks on the password field, show the message box
+myInput.onfocus = function() {
+document.getElementById("message").style.display = "block";
+}
+
+// When the user clicks outside of the password field, hide the message box
+myInput.onblur = function() {
+document.getElementById("message").style.display = "none";
+}
+
+// When the user starts to type something inside the password field
+myInput.onkeyup = function() {
+// Validate lowercase letters
+var lowerCaseLetters = /[a-z]/g;
+if(myInput.value.match(lowerCaseLetters)) {  
+  letter.classList.remove("invalid");
+  letter.classList.add("valid");
+} else {
+  letter.classList.remove("valid");
+  letter.classList.add("invalid");
+}
+
+// Validate capital letters
+var upperCaseLetters = /[A-Z]/g;
+if(myInput.value.match(upperCaseLetters)) {  
+  capital.classList.remove("invalid");
+  capital.classList.add("valid");
+} else {
+  capital.classList.remove("valid");
+  capital.classList.add("invalid");
+}
+
+// Validate numbers
+var numbers = /[0-9]/g;
+if(myInput.value.match(numbers)) {  
+  number.classList.remove("invalid");
+  number.classList.add("valid");
+} else {
+  number.classList.remove("valid");
+  number.classList.add("invalid");
+}
+
+// Validate length
+if(myInput.value.length >= 8) {
+  length.classList.remove("invalid");
+  length.classList.add("valid");
+} else {
+  length.classList.remove("valid");
+  length.classList.add("invalid");
+}
+}
+        </script> -->
+
+
+</bodY>
+
+</html>
